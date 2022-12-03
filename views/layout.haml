@@ -1,0 +1,24 @@
+!!! 5
+%html{lang:"en"}
+	%head
+		%title= @title
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		%meta{ content: "", name: "description" }
+		%meta{ content: "", name: "author" }
+		%meta{ content: "3 days", name: "revisit-after" }
+		%link{ href: "http://creativecommons.org/licenses/by/3.0/", rel: "license", title: "Creative Commons Attribution 3.0 Unported License" }
+		%link{ href: "/feed", rel: "alternate", title: "Atom", type: "application/atom+xml" }
+		- if settings.css_files == :blob
+			%link(type="text/css" rel="stylesheet" href="/blob.css?modified=#{File.mtime('public/blob.css').to_i}" )
+		- else
+			- settings.css_files.each do |css|
+				%link(type="text/css" rel="stylesheet" href="/css/#{css}" )
+		- if settings.js_files == :blob
+			%script(type="text/javascript" src="/blob.js?modified=#{File.mtime('public/blob.js').to_i}")
+		- else
+			- settings.js_files.each do |js|
+				%script(type="text/javascript" src="/js/#{js}")
+
+	%body{id:@action}
+		%h1#title= @title
+		#content!= yield
