@@ -18,7 +18,7 @@ class EventTime < Sequel::Model
 		starts_at > Time.now
 	end
 	def status_for(user)
-		if signup = signups.first(name:user)
+		if signup = signups_dataset[name:user]
 			signup.confirmation_type
 		else
 			ConfirmationType::UNKNOWN
@@ -28,9 +28,12 @@ end
 
 class Signup < Sequel::Model
 	many_to_one :confirmation_type
+	def self.all_users
+		select(:name).distinct.map(:name)
+	end
 end
 
 class ConfirmationType < Sequel::Model
-	UNKNOWN = self[id:0]
+	UNKNOWN = self[label:'Unknown']
 	one_to_many :signups
 end

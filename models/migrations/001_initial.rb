@@ -15,7 +15,7 @@ Sequel.migration do
 		end
 
 		create_table(:confirmation_types) do
-			primary_key :id
+			Integer :id, primary_key:true
 			String :label
 			String :image
 		end

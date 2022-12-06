@@ -3,14 +3,14 @@
 	#location!= markdown(@event.location)
 	#description!= markdown(@event.description)
 
-	%table
+
+	%table.justme
 		%tbody
 			- @event.upcoming.each do |time|
 				%tr
-					%th= time.starts_at.strftime('%a %b-%e @ %I%P')
+					%th= time.starts_at.strftime('%a %b-%-d @ %I%P')
 					%td
-						%img{src:"images/#{time.status_for(@user).image}"}
+						%img{class:'dot', src:"images/#{time.status_for(@user).image}"}
 
 - else
 	Uh, I don't know what you're talking about.
-

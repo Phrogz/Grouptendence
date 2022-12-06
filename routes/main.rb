@@ -9,6 +9,7 @@ class Grouptendance < Sinatra::Application
 	get "/:event" do
 		redirect '/login' unless @user = cookies[:uname]
 		@event = Event[id: params['event']]
+		users = Signup.all_users
 		haml :event
 	end
 

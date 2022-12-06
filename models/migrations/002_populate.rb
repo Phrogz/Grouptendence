@@ -1,10 +1,10 @@
 Sequel.migration do
     up do
         from(:confirmation_types).multi_insert([
-            {label:"Confirmed", image:"yes.png"},
-            {label:"Tentative", image:"maybe.png"},
-            {label:"Will Not Attend", image:"no.png"},
             {id:0, label:"Unknown", image:"nil.png"},
+            {id:1, label:"Confirmed", image:"yes.png"},
+            {id:2, label:"Tentative", image:"maybe.png"},
+            {id:3, label:"Will Not Attend", image:"no.png"},
         ])
 
         from(:events).multi_insert([
@@ -44,6 +44,18 @@ Sequel.migration do
             {event_id:'blu-indoor', starts_at:'20221209T1200-07', minutes:120},
             {event_id:'blu-indoor', starts_at:'20221214T1200-07', minutes:120},
             {event_id:'blu-indoor', starts_at:'20221216T1200-07', minutes:120},
+        ])
+
+        from(:signups).multi_insert([
+            {event_time_id:1, name:'Gavin K.', confirmation_type_id:1},
+            {event_time_id:1, name:'Anshu', confirmation_type_id:1},
+            {event_time_id:1, name:'Wil', confirmation_type_id:2},
+            {event_time_id:1, name:'Byron', confirmation_type_id:3},
+
+            {event_time_id:2, name:'Gavin K.', confirmation_type_id:1},
+            {event_time_id:2, name:'Christian', confirmation_type_id:1},
+            {event_time_id:2, name:'VB', confirmation_type_id:1},
+            {event_time_id:2, name:'Xue', confirmation_type_id:1},
         ])
     end
 
