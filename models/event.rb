@@ -24,16 +24,41 @@ class EventTime < Sequel::Model
 			ConfirmationType::UNKNOWN
 		end
 	end
+	def signup_count_for_status(confirmation_id)
+		signups_dataset.filter(confirmation_type_id: confirmation_id).count
+	end
+	def confirmed_count
+		signup_count_for_status(ConfirmationType::CONFIRMED.id)
+	end
+	def tentative_count
+		signup_count_for_status(ConfirmationType::TENTATIVE.id)
+	end
+	def declined_count
+		signup_count_for_status(ConfirmationType::DECLINED.id)
+	end
 end
 
 class Signup < Sequel::Model
 	many_to_one :confirmation_type
+	many_to_one :event_time
 	def self.all_users
 		select(:name).distinct.map(:name)
 	end
 end
 
 class ConfirmationType < Sequel::Model
-	UNKNOWN = self[label:'Unknown']
+	UNKNOWN   = self[label:'Unknown']
+	CONFIRMED = self[label:'Confirmed']
+	TENTATIVE = self[label:'Tentative']
+	DECLINED  = self[label:'Declined']
+
+	NEXT = {
+		nil => CONFIRMED,
+		UNKNOWN.id => CONFIRMED,
+		CONFIRMED.id => TENTATIVE,
+		TENTATIVE.id => DECLINED,
+		DECLINED.id => UNKNOWN
+	}
+
 	one_to_many :signups
 end

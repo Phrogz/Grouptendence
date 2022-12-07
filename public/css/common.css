@@ -1,7 +1,27 @@
-html, body { background:#eee; margin:0; padding:0; color:#000 }
+html, body { background:#eee; margin:0; padding:0; color:#000; font-family:Calibri, 'sans-serif' }
 h1,h2,h3,h4,h5,h6 { font-family:sans-serif; border-bottom:1px solid #aaa; margin:2em 0 0.5em 0 }
 h1#title { background:#333; margin-top:0; color:#ccc; padding:0.1em 0.5em; font-size:105% }
 #content { margin:1em 2em }
-.dot { width:32px; height:32px; cursor:pointer }
-table.justme th { text-align:right; font-weight:normal }
+table { border-collapse:collapse; margin:1em auto }
+#signups th, #signups td { vertical-align:middle; padding:0 0.5em }
+#signups tr > * { border-bottom:1px solid rgba(0,0,0,0.2)}
+#signups tr:last-child > * { border-bottom: 0 }
+.dot { width:1.5em; height:1.5em }
+#signups .dot { cursor:pointer }
+table th { text-align:right; font-weight:normal }
 #location > *:before { content:'Location: ' }
+
+.exception { font-style:italic; color:#633; text-align:center }
+
+.confirmed { color:#090 }
+.tentative { color:#660 }
+.declined  { color:#600 }
+
+#attendees .confirmed { color:#060 }
+#attendees .tentative { color:#440 }
+#attendees .declined  { color:#400 }
+
+#attendeebox { display:none; position:fixed; width:calc(100% - 4em); left:2em; top:2em; background:#dde0ff; border:1px solid rgb(74, 101, 128); box-shadow:1px 1px 8px rgba(0, 0, 0, 0.6) }
+#showinfo { text-align:center }
+#overview { display:none; font-size:85% }
+#noattendees { display:none; padding:1em }

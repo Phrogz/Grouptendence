@@ -2,9 +2,11 @@
 	What event were you looking for?
 
 	%ul
-		- Event.all.select(&:has_upcoming?).each do |event|
+		- Event.each do |event|
 			%li
 				%a{href:"/#{event.id}"}= event.name
+				- unless event.has_upcoming?
+					(no upcoming events)
 
 - else
 	First, what name should I show for you?

@@ -3,9 +3,11 @@ require 'sinatra'
 require 'haml'
 require 'sinatra/cookies'
 require 'kramdown'
+require 'json'
 
 require_relative 'minify_resources'
-class Grouptendance < Sinatra::Application
+require_relative 'helpers/partials'
+class Hoozin < Sinatra::Application
 	enable :sessions
 
 	configure :production do
@@ -22,6 +24,7 @@ class Grouptendance < Sinatra::Application
 	end
 
 	helpers Sinatra::Cookies
+	helpers PartialPartials
 	helpers do
 		include Rack::Utils
 		alias_method :h, :escape_html

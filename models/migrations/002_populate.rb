@@ -1,10 +1,10 @@
 Sequel.migration do
     up do
         from(:confirmation_types).multi_insert([
-            {id:0, label:"Unknown", image:"nil.png"},
-            {id:1, label:"Confirmed", image:"yes.png"},
-            {id:2, label:"Tentative", image:"maybe.png"},
-            {id:3, label:"Will Not Attend", image:"no.png"},
+            {id:0, label:"Unknown", image:"unknown.png"},
+            {id:1, label:"Confirmed", image:"confirmed.png"},
+            {id:2, label:"Tentative", image:"tentative.png"},
+            {id:3, label:"Declined", image:"declined.png"},
         ])
 
         from(:events).multi_insert([
