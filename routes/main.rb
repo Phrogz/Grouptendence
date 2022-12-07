@@ -61,8 +61,8 @@ class YaIn < Sinatra::Application
 		.select(:name, :label)
 		.order_by(:confirmation_type_id)
 		.all
-		.group_by{ _1[:label].downcase }
-		.map{ |label, people| [label, people.map{ _1[:name] }] }
+		.group_by{ |row| row[:label].downcase }
+		.map{ |label, people| [label, people.map{ |h| h[:name] }] }
 		.to_h.to_json
 	end
 end

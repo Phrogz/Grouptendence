@@ -3,8 +3,8 @@ class Event < Sequel::Model
 	one_to_many :times, class: :EventTime
 	def upcoming
 		times
-		.select{ _1.starts_at > Time.now }
-		.sort_by{ _1.starts_at }
+		.select{ |t| t.starts_at > Time.now }
+		.sort_by{ |t| t.starts_at }
 	end
 	def has_upcoming?
 		!upcoming.empty?
