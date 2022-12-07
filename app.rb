@@ -7,7 +7,7 @@ require 'json'
 
 require_relative 'minify_resources'
 require_relative 'helpers/partials'
-class Hoozin < Sinatra::Application
+class YaIn < Sinatra::Application
 	enable :sessions
 
 	configure :production do

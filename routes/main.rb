@@ -1,7 +1,7 @@
 # encoding: utf-8
-class Hoozin < Sinatra::Application
+class YaIn < Sinatra::Application
 	get "/" do
-		@title = "Welcome to Hoozin"
+		@title = "Welcome to YaIn"
 		@user = cookies[:uname]
 		haml :main
 	end
@@ -10,7 +10,7 @@ class Hoozin < Sinatra::Application
 		redirect '/login' unless @user = cookies[:uname]
 		@event = Event[id: params['event']]
 		if @event
-			@title = "Hoozin for #{@event.name}"
+			@title = "YaIn for #{@event.name}"
 			users = Signup.all_users
 			haml :event
 		else
