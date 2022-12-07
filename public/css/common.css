@@ -1,4 +1,4 @@
-html, body { background:#eee; margin:0; padding:0; color:#000; font-family:Calibri, 'sans-serif' }
+html, body { background:#eee; margin:0; padding:0; color:#000; font-family:Calibri, sans-serif }
 h1,h2,h3,h4,h5,h6 { font-family:sans-serif; border-bottom:1px solid #aaa; margin:2em 0 0.5em 0 }
 h1#title { background:#333; margin-top:0; color:#ccc; padding:0.1em 0.5em; font-size:105% }
 #content { margin:1em 2em }
@@ -13,11 +13,11 @@ table th { text-align:right; font-weight:normal }
 
 .exception { font-style:italic; color:#633; text-align:center }
 
-.confirmed { color:#090 }
+.confirmed { color:#090; font-weight:bold }
 .tentative { color:#660 }
 .declined  { color:#600 }
 
-#attendees .confirmed { color:#060 }
+#attendees .confirmed { color:#060; font-weight:normal }
 #attendees .tentative { color:#440 }
 #attendees .declined  { color:#400 }
 

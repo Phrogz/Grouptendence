@@ -1,18 +1,8 @@
-- if @user
-	What event were you looking for?
+What event were you looking for?
 
-	%ul
-		- Event.each do |event|
-			%li
-				%a{href:"/#{event.id}"}= event.name
-				- unless event.has_upcoming?
-					(no upcoming events)
-
-- else
-	First, what name should I show for you?
-
-	%form(method="post" action="/name")
-		%label
-			Name:
-			%input(name="name")
-		%input(type="submit")
+%ul
+	- Event.each do |event|
+		%li
+			%a{href:"/#{event.id}"}= event.name
+			- unless event.has_upcoming?
+				(no upcoming events)

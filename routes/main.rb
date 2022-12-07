@@ -3,7 +3,17 @@ class YaIn < Sinatra::Application
 	get "/" do
 		@title = "Welcome to YaIn"
 		@user = cookies[:uname]
-		haml :main
+		if @user
+			haml :main
+		else
+			redirect "/name"
+		end
+	end
+
+	get "/name" do
+		@title = "Set your YaIn Name"
+		@user = cookies[:uname]
+		haml :name
 	end
 
 	get "/:event" do

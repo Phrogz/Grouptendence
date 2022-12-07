@@ -5,6 +5,8 @@
 	#location!= markdown(@event.location)
 	#description!= markdown(@event.description)
 
+YaIn, #{@user}? (<a href="/name">Change Name</a>)
+
 - upcoming = @event.upcoming
 - unless upcoming.empty?
 	%table#signups
