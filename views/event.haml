@@ -13,7 +13,7 @@ YaIn, #{@user}? (<a href="/name">Change Name</a>)
 		%tbody
 			- upcoming.each do |time|
 				%tr{data:{time:time.id}}
-					%th= time.starts_at.strftime('%I%P, %a, %b %-d')
+					%th= time.starts_at.strftime('%A, %b %-d, %I%P')
 					%td
 						- status = time.status_for(@user)
 						%img{class:'dot', src:"images/#{status.image}", title:status.label}
