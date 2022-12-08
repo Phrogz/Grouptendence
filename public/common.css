@@ -27,10 +27,11 @@ table th { text-align:right; font-weight:normal }
 #overview { display:none; font-size:85% }
 #noattendees { display:none; padding:1em }
 
+#eventlist { text-align:left; margin:0 auto; display:inline-block }
+
 #editevent input[name="name"] {width:40em }
 #editevent textarea { width:40em; height:4em }
 #editevent textarea[name="description"] { height:6em }
-#editevent #eventlist { text-align:left; margin:0 auto; display:inline-block }
 #editevent form th { padding-right:0.5em }
 #editevent td { text-align:left }
 #editevent input.duration { width:4em }
