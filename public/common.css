@@ -36,3 +36,5 @@ table th { text-align:right; font-weight:normal }
 #editevent td { text-align:left }
 #editevent input.duration { width:4em }
 #editevent td.save button { width:100% }
+
+td.signups { white-space:nowrap }
