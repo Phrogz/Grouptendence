@@ -17,7 +17,7 @@ class YaIn < Sinatra::Application
 	end
 
 	get "/:event" do
-		redirect '/login' unless @user = cookies[:uname]
+		redirect '/name' unless @user = cookies[:uname]
 		@event = Event[id: params['event']]
 		if @event
 			@title = "YaIn for #{@event.name}"

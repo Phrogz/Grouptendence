@@ -1,7 +1,7 @@
-What event were you looking for?
+%p What event were you looking for?
 
-%ul
-	- Event.each do |event|
+%ul#eventlist
+	- Event.all.sort_by{ |e| [(!e.has_upcoming?).to_s, e.name] }.each do |event|
 		%li
 			%a{href:"/#{event.id}"}= event.name
 			- unless event.has_upcoming?

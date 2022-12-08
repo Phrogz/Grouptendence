@@ -25,3 +25,5 @@ table th { text-align:right; font-weight:normal }
 #showinfo { text-align:center }
 #overview { display:none; font-size:85% }
 #noattendees { display:none; padding:1em }
+
+#eventlist { text-align:left; margin:0 auto; display:inline-block }

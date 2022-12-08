@@ -5,7 +5,6 @@ require 'sinatra/cookies'
 require 'kramdown'
 require 'json'
 
-require_relative 'minify_resources'
 require_relative 'helpers/partials'
 class YaIn < Sinatra::Application
 	enable :sessions
@@ -13,14 +12,6 @@ class YaIn < Sinatra::Application
 	configure :production do
 		set :haml, { :ugly=>true }
 		set :clean_trace, true
-		set :css_files, :blob
-		set :js_files,  :blob
-		MinifyResources.minify_all
-	end
-
-	configure :development do
-		set :css_files, MinifyResources::CSS_FILES
-		set :js_files,  MinifyResources::JS_FILES
 	end
 
 	helpers Sinatra::Cookies

@@ -32,7 +32,7 @@ Sequel.migration do
             },
             {
                 id:"blu-ggm",
-                name:"BLU Great-Grandmasters",
+                name:"BLU Great-Grandmasters Pickup",
                 location:"[Valmont Disc Golf Park](https://www.google.com/maps/@40.0274548,-105.2374148,418m/data=!3m1!1e3); sometimes [East Boulder Rec](https://www.google.com/maps/@39.9921613,-105.2240977,209m/data=!3m1!1e3)",
                 description:"Pickup ultimate limited to 'the elderly' ;)"
             },

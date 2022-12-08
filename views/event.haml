@@ -19,7 +19,7 @@ YaIn, #{@user}? (<a href="/name">Change Name</a>)
 						%img{class:'dot', src:"images/#{status.image}", title:status.label}
 					%td.signups!= partial :_event_signups, time:time
 					%td.who
-						%button.who ≡
+						%button.who(title='Who is in?') ≡
 - else
 	%p.exception No upcoming events; ask an admin to add some.
 
