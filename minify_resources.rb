@@ -20,7 +20,6 @@ module MinifyResources
 
 	def self.minify( lib, source_dir, files, output )
 		return if files.empty?
-		require_relative 'helpers/nicebytes'
 		raw_size = 0
 		minified = files.map do |file|
 			raw = IO.read(File.join(source_dir,file))
@@ -38,8 +37,8 @@ module MinifyResources
 			puts "%i files => %s; %s => %s (%.1f%% reduction)" % [
 				files.length,
 				output,
-				NiceBytes.nice_bytes(raw_size),
-				NiceBytes.nice_bytes(min_size),
+				raw_size,
+				min_size,
 				100*(raw_size-min_size)/raw_size
 			]
 		end
