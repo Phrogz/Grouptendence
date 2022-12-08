@@ -1,0 +1,67 @@
+%form(method="post" action="/edit/save")
+	%input{type:"hidden", name:"event", value:@event.id}
+	%table
+		%tr
+			%th
+				%label(for="name") Name:
+			%td
+				%input{name:"name", value:@event.name}
+		%tr
+			%th
+				%label(for="location") Location:
+			%td
+				%textarea{name:"location"}= @event.location
+		%tr
+			%th
+				%label(for="description") Description:
+			%td
+				%textarea{name:"description"}= @event.description
+		%tr
+			%th
+				%label(for="description") Times:
+			%td#timelist
+				- @event.upcoming.each do |time|
+					%div
+						%input{type:'datetime-local', name:"starts_at-#{time.id}", value:time.starts_at.iso8601[0..-7]}
+						for
+						%input.duration{type:'number', name:"minutes-#{time.id}", value:time.minutes, maxlength:3, min:0, step:30}
+						minutes
+						%button.delete(type='button') ❌
+						%input{type:'hidden', name:"delete-#{time.id}", value:"false"}
+				%div
+					%button.addtime(type='button') add new time
+
+		%tr
+			%th
+			%td.save
+				%button save changes
+
+%script
+	:plain
+		document.body.addEventListener('click', (evt) => {
+			const btn = evt.target
+			const div = btn.parentElement
+			if (btn.className=='delete') {
+				if (div.classList.contains('newtime')) {
+					div.parentElement.removeChild(div)
+				} else {
+					div.style.display = 'none'
+					div.querySelector('input[type="hidden"]').value = true
+				}
+			} else if (btn.className=='addtime') {
+				const wrap = timelist.appendChild(document.createElement('div'))
+				wrap.className = 'newtime'
+
+				let goodTime=(new Date).toISOString().substr(0,10)+'T12:00', goodDuration=120;
+				const lastGoodRow = Array.from(timelist.children)
+					.filter(div => div.querySelector('input[name^="starts"]')?.value)
+					.pop()
+				if (lastGoodRow) {
+					goodTime = (new Date).toISOString().substr(0,10)+lastGoodRow.querySelector('[name^="starts"]').value.substr(10)
+					goodDuration = lastGoodRow.querySelector('[name^="minutes"]').value
+				}
+				console.log
+				wrap.innerHTML = `<input name="starts_at[]" type="datetime-local" value="${goodTime}"> for <input name="minutes[]" class="duration" maxlength="3" min="0" step="30" type="number" value="${goodDuration}"> minutes <button class="delete" type="button">❌</button>`
+				timelist.appendChild(div)
+			}
+		}, false)

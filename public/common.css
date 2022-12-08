@@ -3,6 +3,7 @@ h1,h2,h3,h4,h5,h6 { font-family:sans-serif; border-bottom:1px solid #aaa; margin
 h1#title { background:#333; margin-top:0; color:#ccc; padding:0.1em 0.5em; font-size:105% }
 #content { margin:1em 2em; text-align:center }
 table { border-collapse:collapse; margin:1em auto }
+th, td { vertical-align:top }
 #signups th, #signups td { vertical-align:middle; padding:0 0.5em }
 #signups tr > * { border-bottom:1px solid rgba(0,0,0,0.2)}
 #signups tr:last-child > * { border-bottom: 0 }
@@ -26,4 +27,11 @@ table th { text-align:right; font-weight:normal }
 #overview { display:none; font-size:85% }
 #noattendees { display:none; padding:1em }
 
-#eventlist { text-align:left; margin:0 auto; display:inline-block }
+#editevent input[name="name"] {width:40em }
+#editevent textarea { width:40em; height:4em }
+#editevent textarea[name="description"] { height:6em }
+#editevent #eventlist { text-align:left; margin:0 auto; display:inline-block }
+#editevent form th { padding-right:0.5em }
+#editevent td { text-align:left }
+#editevent input.duration { width:4em }
+#editevent td.save button { width:100% }

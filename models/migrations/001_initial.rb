@@ -21,7 +21,7 @@ Sequel.migration do
 		end
 
 		create_table(:signups) do
-			foreign_key :event_time_id, :event_times, null: false
+			foreign_key :event_time_id, :event_times, null:false, on_delete: :cascade
 			String :name, null: false
 			foreign_key :confirmation_type_id, :confirmation_types
 			primary_key [:event_time_id, :name]
