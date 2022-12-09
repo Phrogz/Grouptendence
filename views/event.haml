@@ -10,16 +10,16 @@ YaIn, #{@user}? (<a href="/name">Change Name</a>)
 - upcoming = @event.upcoming
 - unless upcoming.empty?
 	%table#signups
+		%thead
+			%th
+			%th
+			%th.confirmed <span>yes</span>
+			%th.tentative <span>maybe</span>
+			%th.declined <span>no</span>
+			%th who?
 		%tbody
 			- upcoming.each do |time|
-				%tr{data:{time:time.id}}
-					%th= time.starts_at.strftime('%A, %b %-d, %I%P')
-					%td
-						- status = time.status_for(@user)
-						%img{class:'dot', src:"images/#{status.image}", title:status.label}
-					%td.signups!= partial :_event_signups, time:time
-					%td.who
-						%button.who(title='Who is in?') ≡
+				!= partial :_event_row, time:time, user:@user
 - else
 	%p.exception No upcoming events; ask an admin to add some.
 
@@ -41,52 +41,50 @@ YaIn, #{@user}? (<a href="/name">Change Name</a>)
 
 %script
 	:plain
-		Array.from(document.querySelectorAll('#signups img.dot')).forEach(img => {
-			img.addEventListener('click', cycleConfirmation, false)
+		signups.addEventListener('click', (evt) => {
+			const el = evt.target
+			switch (el.tagName) {
+				case 'IMG':
+					cycleConfirmation(el)
+				break
+				case 'BUTTON':
+					showAttendees(el)
+				break
+			}
 		})
-
-		Array.from(document.querySelectorAll('button.who')).forEach(btn => {
-			btn.addEventListener('click', showAttendees, false)
-		})
-
-		document.body.addEventListener('click', () => attendeebox.style.display='none', false)
-
+		document.body.addEventListener('click', _ => attendeebox.style.display='none', false)
 		showinfo.addEventListener('click', showInfo, false)
 
-		function cycleConfirmation(evt) {
-			const el = evt.target
+		function cycleConfirmation(el) {
 			const row = el.closest('[data-time]')
 			if (row) {
 				post('/signup', row.dataset)
-					.then(data => {
-						if (data.status) {
-							el.src = el.src.replace(/\w+.png/, `${data.status.toLowerCase()}.png`)
-							el.title = data.status
-						}
-						if (data.stats) {
-							const stats = document.querySelector(`[data-time="${row.dataset.time}"] td.signups`)
-							if (stats) stats.innerHTML = data.stats
-						}
-					})
+				.then(data => {
+					if (data.rowHTML) {
+						row.outerHTML = data.rowHTML
+						el.src = el.src.replace(/\w+.png/, `${data.status.toLowerCase()}.png`)
+						el.title = data.status
+					}
+				})
 			}
 		}
 
-		function showAttendees(evt) {
-			const row = evt.target.closest('[data-time]')
+		function showAttendees(el) {
+			const row = el.closest('[data-time]')
 			if (row) {
 				get(`/attendees/${row.dataset.time}`)
-					.then(data => {
-						attendeebox.style.display = 'block'
-						noattendees.style.display = !Object.keys(data).length ? 'block' : 'none'
-						Array.from(attendees.rows).forEach(row => {
-							const attendees = data[row.className]
-							row.style.display = attendees ? '' : 'none'
-							if (attendees) row.cells[1].innerHTML = attendees.join(', ')
-						})
-						'confirmed tentative declined'.split(' ').forEach(status => {
-							attendees.querySelector(`tr.${status} `)
-						})
+				.then(data => {
+					attendeebox.style.display = 'block'
+					noattendees.style.display = !Object.keys(data).length ? 'block' : 'none'
+					Array.from(attendees.rows).forEach(row => {
+						const attendees = data[row.className]
+						row.style.display = attendees ? '' : 'none'
+						if (attendees) row.cells[1].innerHTML = attendees.join(', ')
 					})
+					'confirmed tentative declined'.split(' ').forEach(status => {
+						attendees.querySelector(`tr.${status} `)
+					})
+				})
 			}
 		}
 

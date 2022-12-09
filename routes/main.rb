@@ -45,8 +45,8 @@ class YaIn < Sinatra::Application
 
 			content_type :json
 			{
-				status:next_type.label,
-				stats:partial(:_event_signups, time:EventTime[params['time']])
+				status: next_type.label,
+				rowHTML: partial(:_event_row, time:EventTime[params['time']], user:user)
 			}.to_json
 		end
 	end

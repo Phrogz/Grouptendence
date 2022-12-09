@@ -4,11 +4,38 @@ h1#title { background:#333; margin-top:0; color:#ccc; padding:0.1em 0.5em; font-
 #content { margin:1em 2em; text-align:center }
 table { border-collapse:collapse; margin:1em auto }
 th, td { vertical-align:top }
+.dot { width:1.5em; height:1.5em }
+
+#eventlist { text-align:left; margin:0 auto; display:inline-block }
+
 #signups th, #signups td { vertical-align:middle; padding:0 0.5em }
 #signups tr > * { border-bottom:1px solid rgba(0,0,0,0.2)}
 #signups tr:last-child > * { border-bottom: 0 }
-.dot { width:1.5em; height:1.5em }
 #signups .dot { cursor:pointer }
+#signups thead th {
+    /* Rotate vertical: https://stackoverflow.com/a/47245068 */
+    -ms-writing-mode:tb-rl;
+    -webkit-writing-mode:vertical-rl;
+    writing-mode:vertical-rl;
+    transform:rotate(180deg);
+    white-space:nowrap;
+    vertical-align:middle;
+    text-align:left;
+    opacity:0.5;
+    padding:0;
+    padding-top:0.5em;
+    font-size:90%
+}
+
+@supports (-moz-appearance:none) {
+    /* hack for Firefox */
+    #signups thead th {
+        vertical-align:top;
+    }
+}
+
+#signups tbody td.signups { padding:0; width:1em }
+
 table th { text-align:right; font-weight:normal }
 #location > *:before { content:'Location: ' }
 
@@ -18,6 +45,7 @@ table th { text-align:right; font-weight:normal }
 .tentative { color:#660 }
 .declined  { color:#600 }
 
+#attendees .dot { width:1em; height:1em }
 #attendees .confirmed { color:#060; font-weight:normal }
 #attendees .tentative { color:#440 }
 #attendees .declined  { color:#400 }
@@ -27,7 +55,6 @@ table th { text-align:right; font-weight:normal }
 #overview { display:none; font-size:85% }
 #noattendees { display:none; padding:1em }
 
-#eventlist { text-align:left; margin:0 auto; display:inline-block }
 
 #editevent input[name="name"] {width:40em }
 #editevent textarea { width:40em; height:4em }
