@@ -17,6 +17,23 @@ class YaIn < Sinatra::Application
 		haml :name
 	end
 
+	post "/name" do
+		new_user = params[:name] && params[:name].strip
+		if new_user && new_user.length > 0
+			old_user = cookies[:uname]
+			if old_user
+				puts "Renaming #{old_user.inspect} to #{new_user.inspect}"
+				begin
+					Signup.where(name:old_user).update(name:new_user)
+				rescue Sequel::UniqueConstraintViolation
+					puts "Would have caused a collision"
+				end
+			end
+			response.set_cookie('uname', value:new_user, expires:(Time.now + 120 * 24 * 3600))
+		end
+		redirect "/#{params[:returnto]}"
+	end
+
 	get "/:event" do
 		redirect '/name' unless @user = cookies[:uname]
 		response.set_cookie('uname', value:@user, expires:(Time.now + 120 * 24 * 3600))
@@ -28,11 +45,6 @@ class YaIn < Sinatra::Application
 		else
 			redirect '/'
 		end
-	end
-
-	post "/name" do
-		response.set_cookie('uname', value:params[:name], expires:(Time.now + 120 * 24 * 3600))
-		redirect '/'
 	end
 
 	post "/signup" do

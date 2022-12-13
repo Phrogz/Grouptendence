@@ -2,7 +2,9 @@ What name should I show for you?
 
 %form(method="post" action="/name")
     %input{name:"name", value:@user}
-    %input(type="submit")
+    %input{type:"hidden", name:"returnto", value:params['returnto']}
+    %input{type:"submit"}
 Use a name that's clear to everyone.
 
-%p This will write a cookie so you never have to write this again.
+-if @user && !@user.empty?
+    %p This will rename previous signups for #{@user}.

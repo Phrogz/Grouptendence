@@ -5,7 +5,7 @@
 	#location!= markdown(@event.location)
 	#description!= markdown(@event.description)
 
-YaIn, #{@user}? (<a href="/name">Change Name</a>)
+YaIn, #{@user}? (<a href="/name?returnto=#{@event.id}">Change Name</a>)
 
 - upcoming = @event.upcoming
 - unless upcoming.empty?
