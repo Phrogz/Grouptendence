@@ -4,6 +4,7 @@ class YaIn < Sinatra::Application
 		@title = "Welcome to YaIn"
 		@user = cookies[:uname]
 		if @user
+			response.set_cookie('uname', value:@user, expires:(Time.now + 120 * 24 * 3600))
 			haml :main
 		else
 			redirect "/name"
@@ -18,6 +19,7 @@ class YaIn < Sinatra::Application
 
 	get "/:event" do
 		redirect '/name' unless @user = cookies[:uname]
+		response.set_cookie('uname', value:@user, expires:(Time.now + 120 * 24 * 3600))
 		@event = Event[id: params['event']]
 		if @event
 			@title = "YaIn for #{@event.name}"
@@ -29,7 +31,7 @@ class YaIn < Sinatra::Application
 	end
 
 	post "/name" do
-		cookies[:uname] = params[:name]
+		response.set_cookie('uname', value:params[:name], expires:(Time.now + 120 * 24 * 3600))
 		redirect '/'
 	end
 
