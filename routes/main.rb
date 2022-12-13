@@ -35,7 +35,7 @@ class YaIn < Sinatra::Application
 	end
 
 	get "/:event" do
-		redirect '/name' unless @user = cookies[:uname]
+		redirect "/name?returnto=#{params['event']}" unless @user = cookies[:uname]
 		response.set_cookie('uname', value:@user, expires:(Time.now + 120 * 24 * 3600))
 		@event = Event[id: params['event']]
 		if @event
