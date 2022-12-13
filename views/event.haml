@@ -16,7 +16,7 @@ YaIn, #{@user}? (<a href="/name">Change Name</a>)
 			%th.confirmed <span>yes</span>
 			%th.tentative <span>maybe</span>
 			%th.declined <span>no</span>
-			%th who?
+			%th <span>who?</span>
 		%tbody
 			- upcoming.each do |time|
 				!= partial :_event_row, time:time, user:@user

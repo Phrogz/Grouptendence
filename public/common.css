@@ -8,30 +8,24 @@ th, td { vertical-align:top }
 
 #eventlist { text-align:left; margin:0 auto; display:inline-block }
 
-#signups th, #signups td { vertical-align:middle; padding:0 0.5em }
+#signups th, #signups td { vertical-align:middle; padding:0 0.5em; white-space:nowrap }
 #signups tr > * { border-bottom:1px solid rgba(0,0,0,0.2)}
 #signups tr:last-child > * { border-bottom: 0 }
 #signups .dot { cursor:pointer }
-#signups thead th {
-    /* Rotate vertical: https://stackoverflow.com/a/47245068 */
-    -ms-writing-mode:tb-rl;
-    -webkit-writing-mode:vertical-rl;
-    writing-mode:vertical-rl;
-    transform:rotate(180deg);
-    white-space:nowrap;
-    vertical-align:middle;
-    text-align:left;
-    opacity:0.5;
-    padding:0;
-    padding-top:0.5em;
-    font-size:90%
-}
 
-@supports (-moz-appearance:none) {
-    /* hack for Firefox */
-    #signups thead th {
-        vertical-align:top;
-    }
+#signups thead th {
+    vertical-align:bottom;
+    text-align:center;
+    font-size:90%;
+    width:0.5em;
+    min-width:0.5em;
+    padding:0;
+}
+#signups thead th span {
+    opacity:0.5;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    display: inline-block;
 }
 
 #signups tbody td.signups { padding:0; width:1em }
