@@ -39,7 +39,7 @@ class YaIn < Sinatra::Application
 		response.set_cookie('uname', value:@user, expires:(Time.now + 120 * 24 * 3600))
 		@event = Event[id: params['event']]
 		if @event
-			@title = "YaIn for #{@event.name}"
+			@title = "Ya in for #{@event.name}?"
 			users = Signup.all_users
 			haml :event
 		else
