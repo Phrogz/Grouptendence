@@ -27,14 +27,17 @@
 						%input.duration{type:'number', name:"minutes-#{time.id}", value:time.minutes, maxlength:3, min:0, step:30}
 						minutes
 						%button.delete(type='button') ❌
+						%label.notes
+							Notes: <input type="text" name="notes-#{time.id}" value="#{time.notes}">
 						%input{type:'hidden', name:"delete-#{time.id}", value:"false"}
+
+		%tr.controls
+			%th
+			%td
 				%div
 					%button.addtime(type='button') add new time
-
-		%tr
-			%th
-			%td.save
-				%button save changes
+				%div
+					%button.save save changes
 
 %script
 	:plain
@@ -60,8 +63,9 @@
 					goodTime = (new Date).toISOString().substr(0,10)+lastGoodRow.querySelector('[name^="starts"]').value.substr(10)
 					goodDuration = lastGoodRow.querySelector('[name^="minutes"]').value
 				}
-				console.log
-				wrap.innerHTML = `<input name="starts_at[]" type="datetime-local" value="${goodTime}"> for <input name="minutes[]" class="duration" maxlength="3" min="0" step="30" type="number" value="${goodDuration}"> minutes <button class="delete" type="button">❌</button>`
-				timelist.appendChild(div)
+				wrap.innerHTML = `<input name="starts_at[]" type="datetime-local" value="${goodTime}">
+				                  for <input name="minutes[]" class="duration" maxlength="3" min="0" step="30" type="number" value="${goodDuration}"> minutes
+								  <button class="delete" type="button">❌</button>
+								  <label class="notes">Notes: <input type="text" name="notes[]"></label>`
 			}
 		}, false)

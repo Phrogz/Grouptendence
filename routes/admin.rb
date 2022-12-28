@@ -12,30 +12,34 @@ class YaIn < Sinatra::Application
         @event = Event[id: params['event']]
 		redirect '/' unless @event
 
-        @event.update({
-            name:params['name'],
-            location:params['location'],
-            description:params['description']
-        })
+        DB.transaction do
+            @event.update({
+                name:params['name'],
+                location:params['location'],
+                description:params['description'],
+            })
 
-        # delete or update existing times
-        params.keys.grep(/delete-\d+/).each do |key|
-            time_id = key[/\d+/].to_i
-            time = DB[:event_times].where(id:time_id)
-            if params[key]=='true'
-                time.delete
-            else
-                time.update({
-                    starts_at: params["starts_at-#{time_id}"],
-                    minutes:   params["minutes-#{time_id}"]
-                })
+            # delete or update existing times
+            params.keys.grep(/delete-\d+/).each do |key|
+                time_id = key[/\d+/].to_i
+                time = DB[:event_times].where(id:time_id)
+                if params[key]=='true'
+                    time.delete
+                else
+                    notes = params["notes-#{time_id}"].strip
+                    time.update({
+                        starts_at: params["starts_at-#{time_id}"],
+                        minutes:   params["minutes-#{time_id}"],
+                        notes:     notes.empty? ? nil : notes
+                    })
+                end
             end
-        end
 
-        # add new times
-        if params['starts_at']
-            params['starts_at'].zip(params['minutes']).each do |(starts_at, minutes)|
-                DB[:event_times] << {event_id:@event.id, starts_at:starts_at, minutes:minutes}
+            # add new times
+            if params['starts_at']
+                params['starts_at'].zip(params['minutes'], params['notes'].map(&:strip)).each do |(starts_at, minutes, notes)|
+                    DB[:event_times] << {event_id:@event.id, starts_at:starts_at, minutes:minutes, notes:notes.empty? ? nil : notes}
+                end
             end
         end
 

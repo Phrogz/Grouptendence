@@ -9,8 +9,7 @@ th, td { vertical-align:top }
 #eventlist { text-align:left; margin:0 auto; display:inline-block }
 
 #signups th, #signups td { vertical-align:middle; padding:0 0.5em; white-space:nowrap }
-#signups tr > * { border-bottom:1px solid rgba(0,0,0,0.2)}
-#signups tr:last-child > * { border-bottom: 0 }
+#signups tbody:not(:last-child) tr:last-child > * { border-bottom:1px solid rgba(0,0,0,0.2)}
 #signups .dot { cursor:pointer }
 
 #signups thead th {
@@ -29,6 +28,7 @@ th, td { vertical-align:top }
 }
 
 #signups tbody td.signups { padding:0; width:1em }
+#signups tr.notes td { font-size:85%; font-style:italic; text-align:left; padding-left:1em; white-space:normal; padding-bottom:0.4em }
 
 table th { text-align:right; font-weight:normal }
 #location > *:before { content:'Location: ' }
@@ -49,13 +49,16 @@ table th { text-align:right; font-weight:normal }
 #overview { display:none; font-size:85% }
 #noattendees { display:none; padding:1em }
 
-
 #editevent input[name="name"] {width:40em }
 #editevent textarea { width:40em; height:4em }
 #editevent textarea[name="description"] { height:6em }
 #editevent form th { padding-right:0.5em }
 #editevent td { text-align:left }
 #editevent input.duration { width:4em }
-#editevent td.save button { width:100% }
+#editevent .controls div { margin-bottom:0.5em }
+#editevent .controls button.save { width:100%; font-weight:bold; background:#afa; border-radius:3px }
+#timelist > div { border:1px solid rgba(0,0,0,0.2); background: rgba(0,0,0,0.1); padding:0.2em 0.5em; margin-bottom:0.5em; border-radius:3px }
+#editevent label.notes { display:block; font-size:85%; margin-top:0.1em }
+#editevent .notes input { width:90% }
 
 td.signups { white-space:nowrap }

@@ -33,15 +33,15 @@ Sequel.migration do
         ])
 
         from(:event_times).multi_insert([
-            {event_id:'blu-indoor', starts_at:'20221202T1200-07', minutes:120},
-            {event_id:'blu-indoor', starts_at:'20221207T1200-07', minutes:120},
-            {event_id:'blu-indoor', starts_at:'20221209T1200-07', minutes:120},
-            {event_id:'blu-indoor', starts_at:'20221214T1200-07', minutes:120},
-            {event_id:'blu-indoor', starts_at:'20221216T1200-07', minutes:120},
-            {event_id:'blu-indoor', starts_at:'20221221T1200-07', minutes:120},
-            {event_id:'blu-indoor', starts_at:'20221223T1200-07', minutes:120},
-            {event_id:'blu-indoor', starts_at:'20221228T1200-07', minutes:120},
-            {event_id:'blu-indoor', starts_at:'20221230T1200-07', minutes:120},
+            {event_id:'blu-indoor', starts_at:'20231202T1200-07', minutes:120},
+            {event_id:'blu-indoor', starts_at:'20231207T1200-07', minutes:120},
+            {event_id:'blu-indoor', starts_at:'20231209T1200-07', minutes:120},
+            {event_id:'blu-indoor', starts_at:'20231214T1200-07', minutes:120},
+            {event_id:'blu-indoor', starts_at:'20231216T1200-07', minutes:120},
+            {event_id:'blu-indoor', starts_at:'20231221T1200-07', minutes:120},
+            {event_id:'blu-indoor', starts_at:'20231223T1200-07', minutes:120},
+            {event_id:'blu-indoor', starts_at:'20231228T1200-07', minutes:120},
+            {event_id:'blu-indoor', starts_at:'20231230T1200-07', minutes:120},
         ])
 
         from(:signups).multi_insert([

@@ -17,9 +17,8 @@ Ya in, #{@user}? (<a href="/name?returnto=#{@event.id}">Change Name</a>)
 			%th.tentative <span>maybe</span>
 			%th.declined <span>no</span>
 			%th <span>who?</span>
-		%tbody
-			- upcoming.each do |time|
-				!= partial :_event_row, time:time, user:@user
+		- upcoming.each do |time|
+			!= partial :_event_block, time:time, user:@user
 - else
 	%p.exception No upcoming events; ask an admin to add some.
 
@@ -56,12 +55,12 @@ Ya in, #{@user}? (<a href="/name?returnto=#{@event.id}">Change Name</a>)
 		showinfo.addEventListener('click', showInfo, false)
 
 		function cycleConfirmation(el) {
-			const row = el.closest('[data-time]')
-			if (row) {
-				post('/signup', row.dataset)
+			const wrap = el.closest('[data-time]')
+			if (wrap) {
+				post('/signup', wrap.dataset)
 				.then(data => {
-					if (data.rowHTML) {
-						row.outerHTML = data.rowHTML
+					if (data.newHTML) {
+						wrap.outerHTML = data.newHTML
 						el.src = el.src.replace(/\w+.png/, `${data.status.toLowerCase()}.png`)
 						el.title = data.status
 					}
