@@ -12,7 +12,7 @@ class YaIn < Sinatra::Application
 	end
 
 	get "/name" do
-		@title = "Set your YaIn Name"
+		@title = "Set your name for 'Ya in?'"
 		@user = cookies[:uname]
 		haml :name
 	end
