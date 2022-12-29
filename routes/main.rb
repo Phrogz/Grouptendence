@@ -1,7 +1,7 @@
 # encoding: utf-8
 class YaIn < Sinatra::Application
 	get "/" do
-		@title = "Welcome to YaIn"
+		@title = "Welcome to 'Ya In?'"
 		@user = cookies[:uname]
 		if @user
 			response.set_cookie('uname', value:@user, expires:(Time.now + 120 * 24 * 3600))
