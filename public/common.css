@@ -26,9 +26,9 @@ th, td { vertical-align:top }
     transform: rotate(180deg);
     display: inline-block;
 }
-
+#signups tbody tr > *:first-child { text-align:left; padding-left:0 }
 #signups tbody td.signups { padding:0; width:1em }
-#signups tr.notes td { font-size:85%; font-style:italic; text-align:left; padding-left:1em; white-space:normal; padding-bottom:0.4em }
+#signups tr.notes td { font-size:85%; font-style:italic; text-align:left; white-space:normal; padding-bottom:0.4em }
 
 table th { text-align:right; font-weight:normal }
 #location > *:before { content:'Location: ' }
