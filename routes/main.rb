@@ -18,7 +18,7 @@ class YaIn < Sinatra::Application
 	end
 
 	post "/name" do
-		new_user = params[:name] && params[:name].strip
+		new_user = params[:name] && params[:name].strip[0...25].strip
 		if new_user && new_user.length > 0
 			old_user = cookies[:uname]
 			if old_user

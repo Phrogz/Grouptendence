@@ -1,10 +1,10 @@
 What name should I show for you?
 
 %form(method="post" action="/name")
-    %input{name:"name", value:@user}
+    %input{name:"name", value:@user, maxlength:25}
     %input{type:"hidden", name:"returnto", value:params['returnto']}
     %input{type:"submit"}
 Use a name that's clear to everyone.
 
 -if @user && !@user.empty?
-    %p This will rename previous signups for #{@user}.
+    %p This will rename previous signups for "#{@user}".
