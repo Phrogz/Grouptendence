@@ -7,8 +7,7 @@
 
 Ya in, #{@user}? (<a href="/name?returnto=#{@event.id}">Change Name</a>)
 
-- upcoming = @event.upcoming
-- unless upcoming.empty?
+- unless @times.empty?
 	%table#signups
 		%thead
 			%th
@@ -17,7 +16,7 @@ Ya in, #{@user}? (<a href="/name?returnto=#{@event.id}">Change Name</a>)
 			%th.tentative <span>maybe</span>
 			%th.declined <span>no</span>
 			%th <span>who?</span>
-		- upcoming.each do |time|
+		- @times.each do |time|
 			!= partial :_event_block, time:time, user:@user
 - else
 	%p.exception No upcoming events; ask an admin to add some.

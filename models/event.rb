@@ -2,8 +2,9 @@
 class Event < Sequel::Model
 	one_to_many :times, class: :EventTime
 	def upcoming
+		today = Time.now.to_date
 		times
-		.select{ |t| t.starts_at > Time.now }
+		.select{ |t| t.starts_at.to_date >= today }
 		.sort_by{ |t| t.starts_at }
 	end
 	def has_upcoming?

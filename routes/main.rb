@@ -36,11 +36,13 @@ class YaIn < Sinatra::Application
 
 	get "/:event" do
 		redirect "/name?returnto=#{params['event']}" unless @user = cookies[:uname]
+
 		response.set_cookie('uname', value:@user, expires:(Time.now + 120 * 24 * 3600))
 		@event = Event[id: params['event']]
 		if @event
 			@title = "Ya in for #{@event.name}?"
 			users = Signup.all_users
+			@times = params.keys.include?('all') ? @event.times.sort_by{ |t| t.starts_at } : @event.upcoming
 			haml :event
 		else
 			redirect '/'
