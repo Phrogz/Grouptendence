@@ -50,6 +50,7 @@ class YaIn < Sinatra::Application
 	end
 
 	post "/signup" do
+		content_type :json
 		if user=cookies[:uname]
 			signup = Signup[{event_time_id:params['time'], name:user}]
 			next_type = ConfirmationType::NEXT[signup && signup.confirmation_type_id]
@@ -59,12 +60,13 @@ class YaIn < Sinatra::Application
 				Signup.insert(event_time_id:params['time'], name:user, confirmation_type_id:next_type.id)
 			end
 
-			content_type :json
 			{
 				status: next_type.label,
 				newHTML: partial(:_event_block, time:EventTime[params['time']], user:user)
-			}.to_json
-		end
+			}
+		else
+			{ error:"Could not find user" }
+		end.to_json
 	end
 
 	get "/attendees/:time" do
@@ -80,5 +82,16 @@ class YaIn < Sinatra::Application
 		.group_by{ |row| row[:label].downcase }
 		.map{ |label, people| [label, people.map{ |hash| h hash[:name] }] }
 		.to_h.to_json
+	end
+
+	get "/summary/:time" do
+		content_type :json
+		if user=cookies[:uname]
+			{
+				newHTML: partial(:_event_block, time:EventTime[params['time']], user:user)
+			}
+		else
+			{ error:"Could not find user" }
+		end.to_json
 	end
 end

@@ -68,9 +68,9 @@ Ya in, #{@user}? (<a href="/name?returnto=#{@event.id}">Change Name</a>)
 		}
 
 		function showAttendees(el) {
-			const row = el.closest('[data-time]')
-			if (row) {
-				get(`/attendees/${row.dataset.time}`)
+			const wrap = el.closest('[data-time]')
+			if (wrap) {
+				get(`/attendees/${wrap.dataset.time}`)
 				.then(data => {
 					attendeebox.style.display = 'block'
 					noattendees.style.display = !Object.keys(data).length ? 'block' : 'none'
@@ -82,6 +82,10 @@ Ya in, #{@user}? (<a href="/name?returnto=#{@event.id}">Change Name</a>)
 					'confirmed tentative declined'.split(' ').forEach(status => {
 						attendees.querySelector(`tr.${status} `)
 					})
+				})
+				get(`/summary/${wrap.dataset.time}`)
+				.then(data => {
+					if (data.newHTML) wrap.outerHTML = data.newHTML
 				})
 			}
 		}
